@@ -1,1 +1,78 @@
-meu boletin
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boletim Digital</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="cabecalho">
+    <h1>Boletim Digital</h1>
+    <p>9º Ano</p>
+  </header>
+
+  <main class="container">
+
+    <section class="resumo" aria-label="Resumo do boletim">
+
+      <article class="card">
+        <h2>Média geral</h2>
+        <p id="media-geral">—</p>
+      </article>
+
+      <article class="card">
+        <h2>Total de faltas</h2>
+        <p id="total-faltas">—</p>
+      </article>
+
+      <article class="card">
+        <h2>Bom desempenho</h2>
+        <p id="bom-desempenho">—</p>
+      </article>
+
+      <article class="card">
+        <h2>Precisam de atenção</h2>
+        <p id="atencao">—</p>
+      </article>
+
+      <article class="card">
+        <h2>Frequência</h2>
+        <p id="frequencia">—</p>
+        <span id="frequencia-status"></span>
+      </article>
+
+    </section>
+
+    <section class="boletim">
+      <h2>Notas por disciplina</h2>
+
+      <div class="tabela-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Disciplina</th>
+              <th>1º Tri</th>
+              <th>2º Tri</th>
+              <th>3º Tri</th>
+              <th>Média</th>
+              <th>Faltas</th>
+              <th>Situação</th>
+            </tr>
+          </thead>
+
+          <tbody id="tabela-boletim">
+            <!-- As disciplinas serão preenchidas pelo JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
+```

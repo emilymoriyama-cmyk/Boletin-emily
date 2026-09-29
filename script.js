@@ -1,4 +1,4 @@
-# B```javascript
+```javascript
 // Dados fictícios do 9º Ano
 const disciplinas = [
   {
@@ -270,4 +270,3 @@ function preencherResumo() {
 preencherTabela();
 preencherResumo();
 ```
-oletin-emily

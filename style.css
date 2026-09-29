@@ -1,0 +1,166 @@
+```css
+/* Configurações gerais */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: #111;
+  line-height: 1.5;
+}
+
+/* Cabeçalho */
+.cabecalho {
+  background-color: #111;
+  color: #fff;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.cabecalho h1 {
+  font-size: 2rem;
+  margin-bottom: 5px;
+}
+
+.cabecalho p {
+  font-size: 1.1rem;
+  color: #ddd;
+}
+
+/* Área principal */
+.container {
+  width: min(1200px, 92%);
+  margin: 30px auto;
+}
+
+/* Cards de resumo */
+.resumo {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 20px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 1.7rem;
+  font-weight: bold;
+}
+
+.card span {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+/* Área da tabela */
+.boletim {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 24px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+.boletim h2 {
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+}
+
+/* Permite rolagem horizontal em telas pequenas */
+.tabela-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+th,
+td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+th {
+  background-color: #111;
+  color: #fff;
+  font-weight: bold;
+}
+
+th:first-child,
+td:first-child {
+  text-align: left;
+}
+
+tr:hover {
+  background-color: #f7f7f7;
+}
+
+/* Situações */
+.situacao-bom {
+  font-weight: bold;
+}
+
+.situacao-atencao {
+  font-weight: bold;
+}
+
+.situacao-indisponivel {
+  color: #666;
+}
+
+/* Ajustes para telas menores */
+@media (max-width: 900px) {
+  .resumo {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    width: 94%;
+    margin: 20px auto;
+  }
+
+  .cabecalho {
+    padding: 24px 15px;
+  }
+
+  .cabecalho h1 {
+    font-size: 1.6rem;
+  }
+
+  .resumo {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .boletim {
+    padding: 16px;
+  }
+}
+```
