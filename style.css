@@ -1,4 +1,3 @@
-
 /* Configurações gerais */
 * {
   box-sizing: border-box;
@@ -128,6 +127,101 @@ tr:hover {
 
 .situacao-indisponivel {
   color: #666;
+}
+
+/* Seção de Login por PIN */
+.card-login {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 30px;
+  max-width: 400px;
+  margin: 40px auto;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.card-login h2 {
+  margin-bottom: 15px;
+  font-size: 1.4rem;
+}
+
+.info-aluno {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  padding: 12px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.info-aluno p {
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.campo-login {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.campo-login label {
+  font-weight: bold;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+}
+
+.campo-login input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.card-login button,
+.acoes-boletim button {
+  background-color: #111;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.card-login button:hover,
+.acoes-boletim button:hover {
+  background-color: #333;
+}
+
+/* Botões de Ação no Boletim */
+.acoes-boletim {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.mensagem-status {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+/* Campos de entrada na edição de notas e faltas */
+.input-edicao {
+  width: 60px;
+  padding: 6px;
+  text-align: center;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.input-edicao.invalido {
+  border: 2px solid #d9534f;
+  background-color: #f2dede;
 }
 
 /* Ajustes para telas menores */

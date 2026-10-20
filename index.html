@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -16,59 +15,88 @@
 
   <main class="container">
 
-    <section class="resumo" aria-label="Resumo do boletim">
-
-      <article class="card">
-        <h2>Média geral</h2>
-        <p id="media-geral">—</p>
-      </article>
-
-      <article class="card">
-        <h2>Total de faltas</h2>
-        <p id="total-faltas">—</p>
-      </article>
-
-      <article class="card">
-        <h2>Bom desempenho</h2>
-        <p id="bom-desempenho">—</p>
-      </article>
-
-      <article class="card">
-        <h2>Precisam de atenção</h2>
-        <p id="atencao">—</p>
-      </article>
-
-      <article class="card">
-        <h2>Frequência</h2>
-        <p id="frequencia">—</p>
-        <span id="frequencia-status"></span>
-      </article>
-
-    </section>
-
-    <section class="boletim">
-      <h2>Notas por disciplina</h2>
-
-      <div class="tabela-container">
-        <table>
-          <thead>
-            <tr>
-              <th>Disciplina</th>
-              <th>1º Tri</th>
-              <th>2º Tri</th>
-              <th>3º Tri</th>
-              <th>Média</th>
-              <th>Faltas</th>
-              <th>Situação</th>
-            </tr>
-          </thead>
-
-          <tbody id="tabela-boletim">
-            <!-- As disciplinas serão preenchidas pelo JavaScript -->
-          </tbody>
-        </table>
+    <!-- Seção de Acesso (Login por PIN) -->
+    <section id="secao-login" class="card-login">
+      <h2>Acesso ao Boletim</h2>
+      <div class="info-aluno">
+        <p><strong>Série:</strong> 9º Ano</p>
+        <p><strong>Turma:</strong> 9C</p>
+        <p><strong>Número:</strong> 12</p>
       </div>
+      <form id="form-login">
+        <div class="campo-login">
+          <label for="campo-pin">Digite seu PIN:</label>
+          <input type="password" id="campo-pin" maxlength="10" required placeholder="Digite o PIN">
+        </div>
+        <button type="submit" id="btn-entrar">Entrar</button>
+      </form>
+      <p id="mensagem-login" class="mensagem-status"></p>
     </section>
+
+    <!-- Área do Boletim (Inicialmente oculta) -->
+    <div id="area-boletim" style="display: none;">
+
+      <div class="acoes-boletim">
+        <button id="btn-alternar-edicao" type="button">Alterar dados</button>
+        <button id="btn-salvar" type="button" style="display: none;">Salvar alterações</button>
+        <p id="mensagem-salvar" class="mensagem-status"></p>
+      </div>
+
+      <section class="resumo" aria-label="Resumo do boletim">
+
+        <article class="card">
+          <h2>Média geral</h2>
+          <p id="media-geral">—</p>
+        </article>
+
+        <article class="card">
+          <h2>Total de faltas</h2>
+          <p id="total-faltas">—</p>
+        </article>
+
+        <article class="card">
+          <h2>Bom desempenho</h2>
+          <p id="bom-desempenho">—</p>
+        </article>
+
+        <article class="card">
+          <h2>Precisam de atenção</h2>
+          <p id="atencao">—</p>
+        </article>
+
+        <article class="card">
+          <h2>Frequência</h2>
+          <p id="frequencia">—</p>
+          <span id="frequencia-status"></span>
+        </article>
+
+      </section>
+
+      <section class="boletim">
+        <h2>Notas por disciplina</h2>
+
+        <div class="tabela-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Disciplina</th>
+                <th>1º Tri</th>
+                <th>2º Tri</th>
+                <th>3º Tri</th>
+                <th>Média</th>
+                <th>Faltas</th>
+                <th>Situação</th>
+              </tr>
+            </thead>
+
+            <tbody id="tabela-boletim">
+              <!-- As disciplinas serão preenchidas pelo JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
 
   </main>
 
