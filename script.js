@@ -9,6 +9,11 @@ const CONFIG_ALUNO = {
 let pinSessao = "";
 let modoEdicao = false;
 
+// Instâncias dos gráficos
+let graficoMedias = null;
+let graficoEvolucao = null;
+let graficoFaltas = null;
+
 // Dados fictícios locais do 9º Ano
 let disciplinas = [
   {
@@ -330,6 +335,214 @@ function preencherResumo() {
   document.getElementById("frequencia-status").textContent = "Frequência adequada";
 }
 
+// ==========================================================================
+// FUNÇÕES DOS GRÁFICOS (SOMENTE LEITURA DO ESTADO EM MEMÓRIA)
+// ==========================================================================
+
+function atualizarGraficoMedias() {
+  const elCanvas = document.getElementById("graficoMediasDisciplinas");
+  if (!elCanvas) return;
+
+  if (graficoMedias) {
+    graficoMedias.destroy();
+  }
+
+  const rotulos = disciplinas.map(d => d.disciplina);
+  const valores = disciplinas.map(d => {
+    const m = calcularMedia(d);
+    return m !== null ? Number(m.toFixed(1)) : null;
+  });
+
+  const ctx = elCanvas.getContext("2d");
+  graficoMedias = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: rotulos,
+      datasets: [
+        {
+          label: "Média",
+          data: valores,
+          backgroundColor: "#111111",
+          borderColor: "#111111",
+          borderWidth: 1
+        }
+      ]
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          min: 0,
+          max: 10,
+          ticks: { stepSize: 1 }
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function (context) {
+              const val = context.raw;
+              if (val === null || val === undefined) {
+                return " Sem nota";
+              }
+              return ` ${String(val.toFixed(1)).replace(".", ",")}`;
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+function atualizarGraficoEvolucao() {
+  const elCanvas = document.getElementById("graficoEvolucaoTrimestres");
+  if (!elCanvas) return;
+
+  if (graficoEvolucao) {
+    graficoEvolucao.destroy();
+  }
+
+  const calcularMediaTrimestre = function (campo) {
+    const notasValidas = disciplinas
+      .map(d => normalizarNota(d[campo]))
+      .filter(n => n !== null);
+
+    if (notasValidas.length === 0) return null;
+    const soma = notasValidas.reduce((a, b) => a + b, 0);
+    return Number((soma / notasValidas.length).toFixed(1));
+  };
+
+  const mediaTri1 = calcularMediaTrimestre("tri1");
+  const mediaTri2 = calcularMediaTrimestre("tri2");
+  const mediaTri3 = calcularMediaTrimestre("tri3");
+
+  const ctx = elCanvas.getContext("2d");
+  graficoEvolucao = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: ["1º Tri", "2º Tri", "3º Tri"],
+      datasets: [
+        {
+          label: "Média geral",
+          data: [mediaTri1, mediaTri2, mediaTri3],
+          borderColor: "#111111",
+          backgroundColor: "rgba(17, 17, 17, 0.1)",
+          borderWidth: 2,
+          fill: true,
+          tension: 0.1,
+          spanGaps: false
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          min: 0,
+          max: 10,
+          ticks: { stepSize: 1 }
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function (context) {
+              const val = context.raw;
+              if (val === null || val === undefined) {
+                return " Sem notas";
+              }
+              return ` ${String(val.toFixed(1)).replace(".", ",")}`;
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+function atualizarGraficoFaltas() {
+  const elCanvas = document.getElementById("graficoFaltasTrimestres");
+  if (!elCanvas) return;
+
+  if (graficoFaltas) {
+    graficoFaltas.destroy();
+  }
+
+  let faltasTri1 = 0;
+  let faltasTri2 = 0;
+  let faltasTri3 = 0;
+
+  disciplinas.forEach(d => {
+    if (Array.isArray(d.faltas)) {
+      faltasTri1 += Number(d.faltas[0]) || 0;
+      faltasTri2 += Number(d.faltas[1]) || 0;
+      faltasTri3 += Number(d.faltas[2]) || 0;
+    }
+  });
+
+  const totalFaltasInterno = faltasTri1 + faltasTri2 + faltasTri3;
+  const LIMITE_REFERENCIA_INTERNO = 350;
+
+  const badgePerigo = document.getElementById("badgePerigoFaltas");
+  const cardFaltas = document.getElementById("cardFaltas");
+
+  if (totalFaltasInterno >= LIMITE_REFERENCIA_INTERNO) {
+    if (badgePerigo) badgePerigo.style.display = "inline-block";
+    if (cardFaltas) cardFaltas.classList.add("card-critico");
+  } else {
+    if (badgePerigo) badgePerigo.style.display = "none";
+    if (cardFaltas) cardFaltas.classList.remove("card-critico");
+  }
+
+  const ctx = elCanvas.getContext("2d");
+  graficoFaltas = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: ["1º Tri", "2º Tri", "3º Tri"],
+      datasets: [
+        {
+          label: "Faltas",
+          data: [faltasTri1, faltasTri2, faltasTri3],
+          backgroundColor: "#111111",
+          borderColor: "#111111",
+          borderWidth: 1
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { precision: 0 }
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function (context) {
+              return ` ${context.raw} faltas`;
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+function atualizarGraficos() {
+  atualizarGraficoMedias();
+  atualizarGraficoEvolucao();
+  atualizarGraficoFaltas();
+}
+
 // Manipulação do Login
 document.getElementById("form-login").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -385,6 +598,7 @@ document.getElementById("form-login").addEventListener("submit", async (e) => {
 
     preencherTabela();
     preencherResumo();
+    atualizarGraficos();
 
   } catch (erro) {
     msgLogin.style.color = "#d9534f";
@@ -488,6 +702,7 @@ document.getElementById("btn-salvar").addEventListener("click", async () => {
 
     preencherTabela();
     preencherResumo();
+    atualizarGraficos();
 
     msgSalvar.style.color = "#5cb85c";
     msgSalvar.textContent = "Dados salvos com sucesso.";
